@@ -121,8 +121,11 @@ Once the device is bonded, later reconnects do not need pairing mode.
 | Operating state | off, idle, preheating, ready, and so on |
 | Battery | charge percentage |
 | Charge state / Charge source | charging status and how it is powered |
+| Chamber | the chamber fitted: Classic, XL, 3D, and so on |
 | Dabs remaining | the device's own estimate |
+| Dabs per day | the device's own average |
 | Total heat cycles | diagnostic |
+| Total heating time | diagnostic; lifetime time spent heating |
 | Battery voltage / temperature | diagnostic, disabled by default |
 | Battery current | diagnostic, disabled by default; positive while charging, negative while discharging |
 | Heater power | diagnostic, disabled by default |

@@ -19,6 +19,7 @@ from homeassistant.const import (
     UnitOfElectricPotential,
     UnitOfPower,
     UnitOfTemperature,
+    UnitOfTime,
 )
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
@@ -46,6 +47,8 @@ OPERATING_STATE = {
 }
 CHARGE_STATE = {0: "charging", 1: "topping_up", 2: "full", 3: "paused", 4: "done"}
 CHARGE_SOURCE = {0: "usb", 1: "qi", 2: "power_dock", 3: "not_charging"}
+# heaterType (/p/htr/chmt). "Toad" in the app's table is the Proxy's chamber.
+CHAMBER = {0: "none", 1: "classic", 2: "xl", 3: "3d", 4: "proxy"}
 
 
 def _options(mapping: dict[int, str]) -> list[str]:
@@ -116,6 +119,13 @@ SENSORS: tuple[PuffcoSensorDescription, ...] = (
         value_fn=lambda d: _slug(CHARGE_SOURCE, d.get("battChargeSource")),
     ),
     PuffcoSensorDescription(
+        key="chamber",
+        translation_key="chamber",
+        device_class=SensorDeviceClass.ENUM,
+        options=_options(CHAMBER),
+        value_fn=lambda d: _slug(CHAMBER, d.get("heaterType")),
+    ),
+    PuffcoSensorDescription(
         key="dabs_remaining",
         translation_key="dabs_remaining",
         state_class=SensorStateClass.MEASUREMENT,
@@ -123,11 +133,29 @@ SENSORS: tuple[PuffcoSensorDescription, ...] = (
         value_fn=lambda d: _round(d.get("approxDabsRemaining")),
     ),
     PuffcoSensorDescription(
+        key="dabs_per_day",
+        translation_key="dabs_per_day",
+        state_class=SensorStateClass.MEASUREMENT,
+        suggested_display_precision=1,
+        value_fn=lambda d: _round(d.get("dabsPerDay")),
+    ),
+    PuffcoSensorDescription(
         key="total_heat_cycles",
         translation_key="total_heat_cycles",
         state_class=SensorStateClass.TOTAL_INCREASING,
         entity_category=EntityCategory.DIAGNOSTIC,
         value_fn=lambda d: _int(d.get("totalHeatCycles")),
+    ),
+    PuffcoSensorDescription(
+        key="total_heating_time",
+        translation_key="total_heating_time",
+        device_class=SensorDeviceClass.DURATION,
+        native_unit_of_measurement=UnitOfTime.SECONDS,
+        suggested_unit_of_measurement=UnitOfTime.HOURS,
+        state_class=SensorStateClass.TOTAL_INCREASING,
+        suggested_display_precision=1,
+        entity_category=EntityCategory.DIAGNOSTIC,
+        value_fn=lambda d: _round(d.get("totalHeatCycleTime")),
     ),
     PuffcoSensorDescription(
         key="battery_voltage",
