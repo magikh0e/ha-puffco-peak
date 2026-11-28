@@ -45,6 +45,8 @@ POLL_FIELDS: Final = (
     "battChargeEstTimeToFull",
     "battVolts",
     "battTemp",
+    "batteryCurrent",
+    "heaterPower",
     "approxDabsRemaining",
     "totalHeatCycles",
     "stealthMode",

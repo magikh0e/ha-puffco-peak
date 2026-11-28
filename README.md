@@ -124,6 +124,8 @@ Once the device is bonded, later reconnects do not need pairing mode.
 | Dabs remaining | the device's own estimate |
 | Total heat cycles | diagnostic |
 | Battery voltage / temperature | diagnostic, disabled by default |
+| Battery current | diagnostic, disabled by default; positive while charging, negative while discharging |
+| Heater power | diagnostic, disabled by default |
 
 Setting a climate target temperature edits the selected profile's stored
 temperature; the device heats to a profile, it has no separate live setpoint.

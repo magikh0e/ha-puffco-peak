@@ -26,6 +26,8 @@
       "battery": { "name": "Battery" },
       "battery_voltage": { "name": "Battery voltage" },
       "battery_temperature": { "name": "Battery temperature" },
+      "battery_current": { "name": "Battery current" },
+      "heater_power": { "name": "Heater power" },
       "dabs_remaining": { "name": "Dabs remaining" },
       "total_heat_cycles": { "name": "Total heat cycles" },
       "charge_state": {
